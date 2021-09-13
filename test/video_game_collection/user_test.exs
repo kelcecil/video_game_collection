@@ -9,7 +9,9 @@ defmodule VideoGameCollection.UserTest do
     end
 
     test "should provide error if password is too short" do
-
+      params = %{name: "Kel Cecil", email: "kellycecil@ucwv.edu", password: "short"}
+      assert {:error, changeset} = Users.create(params)
+      assert "should be at least 8 character(s)" in errors_on(changeset).password
     end
   end
 end
