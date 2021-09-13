@@ -3,11 +3,15 @@ defmodule VideoGameCollection.User do
   import Ecto.Changeset
   alias Bcrypt
 
+  alias VideoGameCollection.Game
+
   schema "users" do
     field :name, :string
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+
+    has_many :games, Game
 
     timestamps()
   end
