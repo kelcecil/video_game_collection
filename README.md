@@ -1,5 +1,7 @@
 # VideoGameCollection
 
+## This project is developed during class in my Web Development Application to demonstrate concepts in building web applications while showing students practical programming and debugging skills (because I certainly make my fair share of mistakes).
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
