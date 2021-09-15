@@ -7,4 +7,8 @@ defmodule VideoGameCollection.Users do
     |> User.create_changeset(params)
     |> Repo.insert()
   end
+
+  def get(id) do
+    Repo.get(User, id)
+  end
 end

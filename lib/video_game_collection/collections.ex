@@ -8,4 +8,8 @@ defmodule VideoGameCollection.Collections do
     |> Game.changeset(attrs)
     |> Repo.insert!()
   end
+
+  def list(%User{id: id}) do
+    Repo.get_by(Game, user_id: id)
+  end
 end
