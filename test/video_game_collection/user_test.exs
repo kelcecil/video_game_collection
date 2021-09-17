@@ -8,6 +8,12 @@ defmodule VideoGameCollection.UserTest do
       assert {:ok, %{}} = Users.create(params)
     end
 
+    test "should reject creating a user with no password" do
+      params = %{name: "Kel Cecil", email: "kellycecil@ucwv.edu"}
+      assert {:error, changeset} = Users.create(params)
+      assert "can't be blank" in errors_on(changeset).password
+    end
+
     test "should provide error if password is too short" do
       params = %{name: "Kel Cecil", email: "kellycecil@ucwv.edu", password: "short"}
       assert {:error, changeset} = Users.create(params)
