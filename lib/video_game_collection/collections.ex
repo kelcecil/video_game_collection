@@ -2,6 +2,8 @@ defmodule VideoGameCollection.Collections do
   alias VideoGameCollection.{Game, User}
   alias VideoGameCollection.Repo
 
+  import Ecto.Query
+
   def add(%User{} = user, attrs) do
     user
     |> Ecto.build_assoc(:games)
@@ -10,6 +12,8 @@ defmodule VideoGameCollection.Collections do
   end
 
   def list(%User{id: id}) do
-    Repo.get_by(Game, user_id: id)
+    query = from g in Game,
+      where: g.user_id == ^id
+    Repo.all(query)
   end
 end

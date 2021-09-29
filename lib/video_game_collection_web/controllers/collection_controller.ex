@@ -4,7 +4,7 @@ defmodule VideoGameCollectionWeb.CollectionController do
   alias VideoGameCollection.User
 
 
-  def index(conn, %{user_id: user_id} = _params) do
+  def index(conn, %{"user_id" => user_id} = _params) do
     with %User{} = user <- Users.get(user_id) do
       collection = Collections.list(user)
 
