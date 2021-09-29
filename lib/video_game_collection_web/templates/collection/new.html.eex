@@ -7,5 +7,8 @@
     <%= label f, :publisher %>
     <%= text_input f, :publisher %>
 
+    <%= label f, :cover_art_url %>
+    <%= text_input f, :cover_art_url %>
+
     <%= submit "Add new game" %>
 <% end %>

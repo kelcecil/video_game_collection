@@ -18,6 +18,15 @@ defmodule VideoGameCollectionWeb.CollectionController do
     |> halt()
   end
 
+  def show(conn, %{"id" => id}) do
+    user = Users.get(1)
+    game = Collections.get_by_id(user, id)
+
+    conn
+    |> put_status(200)
+    |> render("show.html", game: game)
+  end
+
   def index(conn, _params) do
     # Hardcoded user ID until we look at authorization and authentication
     # and expand our app to multi-user.

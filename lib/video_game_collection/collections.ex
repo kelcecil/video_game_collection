@@ -11,6 +11,15 @@ defmodule VideoGameCollection.Collections do
     |> Repo.insert!()
   end
 
+  def get_by_id(%User{id: user_id} = _user, game_id) do
+    query =
+      from g in Game,
+      where: g.id == ^game_id,
+      where: g.user_id == ^user_id
+
+    Repo.one(query)
+  end
+
   def list(%User{id: id}) do
     query = from g in Game,
       where: g.user_id == ^id
