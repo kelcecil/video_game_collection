@@ -1,0 +1,11 @@
+<h1>Add a new game!!!</h1>
+
+<%= form_for @conn, Routes.collection_path(@conn, :create), fn f -> %>
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+
+    <%= label f, :publisher %>
+    <%= text_input f, :publisher %>
+
+    <%= submit "Add new game" %>
+<% end %>
