@@ -1,7 +1,7 @@
 <h1><%= @user.name %>'s Collection</h1>
 
 <%= for game <- @collection do %>
-    <div>
+    <div class="index-row">
         <h3><%= game.name %></h3>
         <p><%= game.publisher %></p>
 
