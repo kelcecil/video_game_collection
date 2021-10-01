@@ -1,6 +1,6 @@
 defmodule VideoGameCollectionWeb.CollectionController do
   use VideoGameCollectionWeb, :controller
-  alias VideoGameCollection.{Collections, Users}
+  alias VideoGameCollection.{Collections, Game, Users}
   alias VideoGameCollection.User
 
   def new(conn, _params) do
@@ -9,13 +9,30 @@ defmodule VideoGameCollectionWeb.CollectionController do
     |> render("new.html")
   end
 
+  def edit(conn, %{"id" => id}) do
+    user = Users.get(1)
+    game = Collections.get_by_id(user, id)
+
+    changeset = Game.changeset(game)
+
+    render(conn, "edit.html", changeset: changeset, id: id)
+  end
+
+  def update(conn, %{"id" => id, "game" => attrs} = params) do
+    IO.inspect(params, label: :params)
+
+    user = Users.get(1)
+    game = Collections.get_by_id(user, id)
+    updated_game = Collections.update(game, attrs)
+
+    render(conn, "show.html", game: updated_game)
+  end
+
   def create(conn, %{"name" => _name, "publisher" => _publisher} = params) do
     user = Users.get(1)
-    _collection = Collections.add(user, params)
+    game = Collections.add(user, params)
 
-    conn
-    |> redirect(to: Routes.collection_path(conn, :index))
-    |> halt()
+    render(conn, "show.html", game: game)
   end
 
   def show(conn, %{"id" => id}) do

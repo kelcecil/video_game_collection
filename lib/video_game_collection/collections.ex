@@ -11,6 +11,12 @@ defmodule VideoGameCollection.Collections do
     |> Repo.insert!()
   end
 
+  def update(game, attrs) do
+    game
+    |> Game.changeset(attrs)
+    |> Repo.update!()
+  end
+
   def get_by_id(%User{id: user_id} = _user, game_id) do
     query =
       from g in Game,

@@ -1,0 +1,12 @@
+<%= form_for @changeset, Routes.collection_path(@conn, :update, @id), fn f -> %>
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+
+    <%= label f, :publisher %>
+    <%= text_input f, :publisher %>
+
+    <%= label f, :cover_art_url %>
+    <%= text_input f, :cover_art_url %>
+
+    <%= submit "Update" %>
+<% end %>

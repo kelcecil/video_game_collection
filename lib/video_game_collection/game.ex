@@ -14,7 +14,7 @@ defmodule VideoGameCollection.Game do
     timestamps()
   end
 
-  def changeset(game, attrs) do
+  def changeset(game, attrs \\ %{}) do
     game
     |> cast(attrs, [:name, :publisher, :cover_art_url])
   end
