@@ -1,8 +1,12 @@
 <h1><%= @user.name %>'s Collection</h1>
 
-<%= for collection <- @collection do %>
-    <h3><%= collection.name %></h3>
-    <p><%= collection.publisher %></p>
+<%= for game <- @collection do %>
+    <div>
+        <h3><%= game.name %></h3>
+        <p><%= game.publisher %></p>
+
+        <a href="<%= Routes.collection_path(@conn, :edit, game.id) %>">Edit</a>
+    </div>
 <% end %>
 
 <p>Games in collection: <%= length(@collection) %></p>
