@@ -1,4 +1,4 @@
-defmodule VideoGameCollection.Users do
+defmodule VideoGameCollection.Accounts do
   alias VideoGameCollection.User
   alias VideoGameCollection.Repo
 

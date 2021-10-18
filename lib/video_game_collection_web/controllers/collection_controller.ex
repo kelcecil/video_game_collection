@@ -1,6 +1,6 @@
 defmodule VideoGameCollectionWeb.CollectionController do
   use VideoGameCollectionWeb, :controller
-  alias VideoGameCollection.{Collections, Game, Users}
+  alias VideoGameCollection.{Accounts, Collections, Game}
   alias VideoGameCollection.User
 
   def new(conn, _params) do
@@ -10,7 +10,7 @@ defmodule VideoGameCollectionWeb.CollectionController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Users.get(1)
+    user = Accounts.get(1)
     game = Collections.get_by_id(user, id)
 
     changeset = Game.changeset(game)
@@ -21,7 +21,7 @@ defmodule VideoGameCollectionWeb.CollectionController do
   def update(conn, %{"id" => id, "game" => attrs} = params) do
     IO.inspect(params, label: :params)
 
-    user = Users.get(1)
+    user = Accounts.get(1)
     game = Collections.get_by_id(user, id)
     updated_game = Collections.update(game, attrs)
 
@@ -29,14 +29,14 @@ defmodule VideoGameCollectionWeb.CollectionController do
   end
 
   def create(conn, %{"name" => _name, "publisher" => _publisher} = params) do
-    user = Users.get(1)
+    user = Accounts.get(1)
     game = Collections.add(user, params)
 
     render(conn, "show.html", game: game)
   end
 
   def show(conn, %{"id" => id}) do
-    user = Users.get(1)
+    user = Accounts.get(1)
     game = Collections.get_by_id(user, id)
 
     conn
@@ -47,7 +47,7 @@ defmodule VideoGameCollectionWeb.CollectionController do
   def index(conn, _params) do
     # Hardcoded user ID until we look at authorization and authentication
     # and expand our app to multi-user.
-    with %User{} = user <- Users.get(1) do
+    with %User{} = user <- Accounts.get(1) do
       collection = Collections.list(user)
 
       conn
@@ -58,6 +58,6 @@ defmodule VideoGameCollectionWeb.CollectionController do
         conn
         |> put_status(404)
         |> render(:"404")
-      end
+    end
   end
 end
