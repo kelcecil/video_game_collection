@@ -9,7 +9,8 @@ defmodule VideoGameCollection.Game do
     field :publisher, :string
     field :cover_art_url, :string
 
-    belongs_to :user, User # user_id
+    # user_id
+    belongs_to :user, User
 
     timestamps()
   end
