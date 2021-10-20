@@ -17,6 +17,7 @@ defmodule VideoGameCollectionWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/session", SessionController
     resources "/collection", CollectionController
   end
 
