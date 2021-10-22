@@ -1,3 +1,7 @@
+<%= if @error_message != nil do %>
+    <p><%= @error_message %></p>
+<% end %>
+
 <%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
     <label>Email: </label>
     <%= text_input f, :email %>
