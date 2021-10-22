@@ -9,10 +9,10 @@ defmodule VideoGameCollectionWeb.SessionController do
 
   def create(conn, %{"session" => %{"email" => email, "password" => password}}) do
     with %User{id: id} <- UserAuth.login(email, password),
-     token <- Phoenix.Token.sign(VideoGameCollectionWeb.Endpoint, "randonized_salt", id) do
+     token <- Phoenix.Token.sign(VideoGameCollectionWeb.Endpoint, "randomized_salt", id) do
       conn
-      |> clear_session()
       |> configure_session(renew: true)
+      |> clear_session()
       |> put_session(:user_token, token)
       |> redirect(to: Routes.collection_path(conn, :index))
     else

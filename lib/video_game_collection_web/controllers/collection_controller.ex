@@ -1,7 +1,8 @@
 defmodule VideoGameCollectionWeb.CollectionController do
   use VideoGameCollectionWeb, :controller
   alias VideoGameCollection.{Accounts, Collections, Game}
-  alias VideoGameCollection.User
+
+  plug :authenticate_user
 
   def new(conn, _params) do
     conn
@@ -9,8 +10,7 @@ defmodule VideoGameCollectionWeb.CollectionController do
     |> render("new.html")
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = Accounts.get(1)
+  def edit(%{assigns: %{authenticated_user: user}} = conn, %{"id" => id}) do
     game = Collections.get_by_id(user, id)
 
     changeset = Game.changeset(game)
@@ -18,25 +18,20 @@ defmodule VideoGameCollectionWeb.CollectionController do
     render(conn, "edit.html", changeset: changeset, id: id)
   end
 
-  def update(conn, %{"id" => id, "game" => attrs} = params) do
-    IO.inspect(params, label: :params)
-
-    user = Accounts.get(1)
+  def update(%{assigns: %{authenticated_user: user}} = conn, %{"id" => id, "game" => attrs} = _params) do
     game = Collections.get_by_id(user, id)
     updated_game = Collections.update(game, attrs)
 
     render(conn, "show.html", game: updated_game)
   end
 
-  def create(conn, %{"name" => _name, "publisher" => _publisher} = params) do
-    user = Accounts.get(1)
+  def create(%{assigns: %{authenticated_user: user}} = conn, %{"name" => _name, "publisher" => _publisher} = params) do
     game = Collections.add(user, params)
 
     render(conn, "show.html", game: game)
   end
 
-  def show(conn, %{"id" => id}) do
-    user = Accounts.get(1)
+  def show(%{assigns: %{authenticated_user: user}} = conn, %{"id" => id}) do
     game = Collections.get_by_id(user, id)
 
     conn
@@ -44,20 +39,19 @@ defmodule VideoGameCollectionWeb.CollectionController do
     |> render("show.html", game: game)
   end
 
-  def index(conn, _params) do
+  def index(%{assigns: %{authenticated_user: user}} = conn, _params) do
     # Hardcoded user ID until we look at authorization and authentication
     # and expand our app to multi-user.
-    with %User{} = user <- Accounts.get(1) do
-      collection = Collections.list(user)
+    collection = Collections.list(user)
 
-      conn
-      |> put_status(200)
-      |> render("index.html", collection: collection, user: user)
-    else
-      nil ->
-        conn
-        |> put_status(404)
-        |> render(:"404")
-    end
+    conn
+    |> put_status(200)
+    |> render("index.html", collection: collection, user: user)
+  end
+
+  def authenticate_user(conn, _opts) do
+    token = get_session(conn, :user_token)
+    {:ok, id} = Phoenix.Token.verify(VideoGameCollectionWeb.Endpoint, "randomized_salt", token)
+    assign(conn, :authenticated_user, Accounts.get(id))
   end
 end
