@@ -21,4 +21,11 @@ defmodule VideoGameCollectionWeb.SessionController do
         |> render("new.html", error_message: "Invalid username or password")
     end
   end
+
+  def delete(conn, _params) do
+    conn
+    |> clear_session()
+    |> redirect(to: Routes.page_path(conn, :index))
+    |> halt()
+  end
 end

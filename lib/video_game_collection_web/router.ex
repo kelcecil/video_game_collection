@@ -17,7 +17,9 @@ defmodule VideoGameCollectionWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/session", SessionController
+    delete "/session", SessionController, :delete
+    get "/session/new", SessionController, :new
+    post "/session", SessionController, :create
     resources "/collection", CollectionController
   end
 
