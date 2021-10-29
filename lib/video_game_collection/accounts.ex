@@ -11,4 +11,12 @@ defmodule VideoGameCollection.Accounts do
   def get(id) do
     Repo.get(User, id)
   end
+
+  def share_collection(%User{} = owner, %User{} = guest) do
+    user = Repo.preload(owner, :guests)
+
+    user
+    |> User.guests_changeset(%{guests: [guest | user.guests]})
+    |> Repo.update!()
+  end
 end

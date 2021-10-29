@@ -12,6 +12,7 @@ defmodule VideoGameCollection.User do
     field :password_hash, :string
 
     has_many :games, Game
+    many_to_many :guests, __MODULE__, join_through: "permissions", join_keys: [owner_id: :id, receipient_id: :id]
 
     timestamps()
   end
@@ -19,6 +20,12 @@ defmodule VideoGameCollection.User do
   def changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, [:name, :email, :password])
+  end
+
+  def guests_changeset(%__MODULE__{} = user, attrs) do
+    user
+    |> cast(attrs, [])
+    |> put_assoc(:guests, attrs.guests)
   end
 
   def create_changeset(%__MODULE__{} = user, attrs) do
