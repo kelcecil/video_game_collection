@@ -5,14 +5,18 @@ defmodule VideoGameCollection.User do
 
   alias VideoGameCollection.Game
 
+  @derive {Jason.Encoder, except: [:__meta__, :password, :password_hash, :games, :guests]}
+
   schema "users" do
     field :name, :string
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-
     has_many :games, Game
-    many_to_many :guests, __MODULE__, join_through: "permissions", join_keys: [owner_id: :id, receipient_id: :id]
+    many_to_many :guests, __MODULE__,
+      join_through: "permissions",
+      join_keys: [owner_id: :id, receipient_id: :id],
+      on_replace: :delete
 
     timestamps()
   end

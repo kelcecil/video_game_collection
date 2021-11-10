@@ -40,13 +40,11 @@ defmodule VideoGameCollectionWeb.CollectionController do
   end
 
   def index(%{assigns: %{authenticated_user: user}} = conn, _params) do
-    # Hardcoded user ID until we look at authorization and authentication
-    # and expand our app to multi-user.
     collection = Collections.list(user)
 
     conn
     |> put_status(200)
-    |> render("index.html", collection: collection, user: user)
+    |> render("index.html", collection: collection, user: user, user_token: get_session(conn, :user_token))
   end
 
   def authenticate_user(conn, _opts) do

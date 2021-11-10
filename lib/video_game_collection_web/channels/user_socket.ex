@@ -2,7 +2,8 @@ defmodule VideoGameCollectionWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", VideoGameCollectionWeb.RoomChannel
+  ## collection:1 <- user_id
+  channel "collection:*", VideoGameCollectionWeb.CollectionChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -13,7 +14,7 @@ defmodule VideoGameCollectionWeb.UserSocket do
   #
   # To deny connection, return `:error`.
   #
-  # See `Phoenix.Token` documentation for examples in
+  # See `Phoenix.Token` documentation for examples ins
   # performing token verification on connect.
   @impl true
   def connect(_params, socket, _connect_info) do

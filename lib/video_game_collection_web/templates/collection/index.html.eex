@@ -10,3 +10,24 @@
 <% end %>
 
 <p>Games in collection: <%= length(@collection) %></p>
+
+<div id="shared-with">
+    <h3>Guests:<h3>
+    <div id="shared-list">
+        <ul>
+            <%= for user <- @user.guests do %>
+                <li><%= user.name %> (<%= user.email %>) <input type="button" value="Remove" /></li>
+            <% end %>
+        </ul>
+    </div>
+    <div id="share-with-new">
+        <label>Share with a user: <input id="user-search" type="text" placeholder="person@email.com" /></label>
+        <ul id="suggestions">
+
+        </ul>
+        <input type="button" value="Add user" />
+    </div>
+</div>
+
+<script>window.userToken = "<%= @user_token %>";</script>
+<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

@@ -55,9 +55,38 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("collection:1", {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
+
+const userSearch = document.getElementById("user-search");
+userSearch.addEventListener("input", event => {
+  channel.push("new_search_suggestion", {
+    query: event.target.value
+  })
+});
+
+channel.on("user_search_results", payload => {
+  console.log(payload);
+  const suggestions = document.getElementById("suggestions");
+
+  // Remove previous child nodes.
+  const nodes = suggestions.childNodes;
+  nodes.forEach(node => {
+    suggestions.removeChild(node);
+  });
+
+  // Add new suggestions
+  payload.users.forEach(user => {
+    const nameString = user.name + " (" + user.email + ")"
+    const textNode = document.createTextNode(nameString);
+
+    const listItem = document.createElement("li");
+    listItem.appendChild(textNode);
+
+    suggestions.appendChild(listItem);
+  });
+});
 
 export default socket
