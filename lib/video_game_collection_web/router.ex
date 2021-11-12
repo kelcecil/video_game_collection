@@ -7,6 +7,7 @@ defmodule VideoGameCollectionWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_root_layout, {VideoGameCollectionWeb.LayoutView, :root}
   end
 
   pipeline :api do
@@ -21,6 +22,8 @@ defmodule VideoGameCollectionWeb.Router do
     get "/session/new", SessionController, :new
     post "/session", SessionController, :create
     resources "/collection", CollectionController
+
+    live "/chat", ChatLive
   end
 
   # Other scopes may use custom stacks.

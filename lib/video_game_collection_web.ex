@@ -42,12 +42,21 @@ defmodule VideoGameCollectionWeb do
     end
   end
 
+  def live_view do
+    quote do
+      use Phoenix.LiveView
+      # Include shared imports and aliases for views
+      unquote(view_helpers())
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
 
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
@@ -62,6 +71,8 @@ defmodule VideoGameCollectionWeb do
     quote do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+
+      import Phoenix.LiveView.Helpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
