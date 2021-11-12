@@ -1,0 +1,16 @@
+<div id="chat-window">
+    <%= for {name, timestamp, message} <- Enum.reverse(@messages) do %>
+        <div>
+            <p><%= name %> (<%= timestamp %>): <%= message %></p>
+        </div>
+    <% end %>
+</div>
+<div id="chat-controls">
+    Chatting as: <%= @authenticated_user.name %>
+    <div>
+        <.form let={f} for={:chat} phx-submit="new-message">
+            <%= text_input f, :message, placeholder: "Message" %>
+            <%= submit "Send" %>
+        </.form>
+    </div>
+</div>
