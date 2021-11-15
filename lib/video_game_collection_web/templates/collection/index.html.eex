@@ -1,12 +1,8 @@
 <h1><%= @user.name %>'s Collection</h1>
 
 <%= for game <- @collection do %>
-    <div class="index-row">
-        <h3><%= game.name %></h3>
-        <p><%= game.publisher %></p>
-
-        <a href="<%= Routes.collection_path(@conn, :edit, game.id) %>">Edit</a>
-    </div>
+    <%= game_card game %>
+    <a href="<%= Routes.collection_path(@conn, :edit, game.id) %>">Edit</a>
 <% end %>
 
 <p>Games in collection: <%= length(@collection) %></p>
@@ -30,4 +26,3 @@
 </div>
 
 <script>window.userToken = "<%= @user_token %>";</script>
-<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

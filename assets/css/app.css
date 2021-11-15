@@ -1,9 +1,26 @@
 /* This file is for your main application css. */
 @import "./phoenix.css";
 
-.index-row {
-  display: block;
-  padding: 10px;
+.game-component {
+  display: flex;
+  margin: 20px;
+}
+
+.image-section {
+  flex: 2;
+}
+
+.info-section {
+  flex: 1;
+}
+
+.game-title {
+  text-decoration-style: wavy;
+  text-decoration-thickness: 3px;
+  //font-weight: bold;
+}
+
+.console-name {
 }
 
 /* Alerts and form errors */
