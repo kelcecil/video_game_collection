@@ -9,7 +9,7 @@ defmodule VideoGameCollectionWeb.SessionController do
 
   def create(conn, %{"session" => %{"email" => email, "password" => password}}) do
     with %User{id: id} <- UserAuth.login(email, password),
-     token <- Phoenix.Token.sign(VideoGameCollectionWeb.Endpoint, "randomized_salt", id) do
+         token <- Phoenix.Token.sign(VideoGameCollectionWeb.Endpoint, "randomized_salt", id) do
       conn
       |> configure_session(renew: true)
       |> clear_session()

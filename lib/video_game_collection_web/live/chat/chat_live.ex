@@ -9,12 +9,13 @@ defmodule VideoGameCollectionWeb.ChatLive do
     PubSub.subscribe(VideoGameCollection.PubSub, @chat_topic)
 
     # Verify token and look up the user.
-    {:ok, id} = Phoenix.Token.verify(VideoGameCollectionWeb.Endpoint, "randomized_salt", user_token)
+    {:ok, id} =
+      Phoenix.Token.verify(VideoGameCollectionWeb.Endpoint, "randomized_salt", user_token)
+
     {:ok,
-      socket
-      |> assign(:authenticated_user, Accounts.get(id))
-      |> assign(:messages, [])
-    }
+     socket
+     |> assign(:authenticated_user, Accounts.get(id))
+     |> assign(:messages, [])}
   end
 
   def handle_event("new-message", payload, socket) do

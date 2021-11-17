@@ -13,6 +13,7 @@ defmodule VideoGameCollection.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     has_many :games, Game
+
     many_to_many :guests, __MODULE__,
       join_through: "permissions",
       join_keys: [owner_id: :id, receipient_id: :id],

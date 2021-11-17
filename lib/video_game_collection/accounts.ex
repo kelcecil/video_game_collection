@@ -25,7 +25,7 @@ defmodule VideoGameCollection.Accounts do
 
     query =
       from u in User,
-      where: ilike(u.name, ^wildcard)
+        where: ilike(u.name, ^wildcard)
 
     Repo.all(query)
   end
