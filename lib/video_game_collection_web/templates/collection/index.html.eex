@@ -1,11 +1,17 @@
-<h1><%= @user.name %>'s Collection</h1>
+<div class="game-header">
+    <h1><%= @user.name %>'s Collection</h1>
+    <p><%= length(@collection) %> games</p>
+</div>
 
-<%= for game <- @collection do %>
-    <%= game_card game %>
-    <a href="<%= Routes.collection_path(@conn, :edit, game.id) %>">Edit</a>
-<% end %>
-
-<p>Games in collection: <%= length(@collection) %></p>
+<div class="game-container">
+    <%= for row <- Enum.chunk_every(@collection, 3) do %>
+        <div class="game-row">
+            <%= for game <- row do %>
+                <%= game_card game %>
+            <% end %>
+        </div>
+    <% end %>
+</div>
 
 <div id="shared-with">
     <h3>Guests:<h3>

@@ -18,14 +18,20 @@ defmodule VideoGameCollectionWeb.CollectionController do
     render(conn, "edit.html", changeset: changeset, id: id)
   end
 
-  def update(%{assigns: %{authenticated_user: user}} = conn, %{"id" => id, "game" => attrs} = _params) do
+  def update(
+        %{assigns: %{authenticated_user: user}} = conn,
+        %{"id" => id, "game" => attrs} = _params
+      ) do
     game = Collections.get_by_id(user, id)
     updated_game = Collections.update(game, attrs)
 
     render(conn, "show.html", game: updated_game)
   end
 
-  def create(%{assigns: %{authenticated_user: user}} = conn, %{"name" => _name, "publisher" => _publisher} = params) do
+  def create(
+        %{assigns: %{authenticated_user: user}} = conn,
+        %{"name" => _name, "publisher" => _publisher} = params
+      ) do
     game = Collections.add(user, params)
 
     render(conn, "show.html", game: game)
@@ -44,7 +50,11 @@ defmodule VideoGameCollectionWeb.CollectionController do
 
     conn
     |> put_status(200)
-    |> render("index.html", collection: collection, user: user, user_token: get_session(conn, :user_token))
+    |> render("index.html",
+      collection: collection,
+      user: user,
+      user_token: get_session(conn, :user_token)
+    )
   end
 
   def authenticate_user(conn, _opts) do
