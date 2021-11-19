@@ -7,7 +7,7 @@
     <%= for row <- Enum.chunk_every(@collection, 3) do %>
         <div class="game-row">
             <%= for game <- row do %>
-                <%= game_card game %>
+                <%= game_card with_edit_link(@conn, game) %>
             <% end %>
         </div>
     <% end %>

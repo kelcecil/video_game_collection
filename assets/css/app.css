@@ -16,7 +16,6 @@ body {
   color: #FFFAFA;
   padding: 15px;
   
-
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -30,12 +29,16 @@ body {
   margin: 10px;
 
   background-color: #FFFFF0;
-  box-shadow: 2px 2px #FFFFE0;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   border-radius: 10px;
 }
 
 .game-container {
   background-color: #F0F0F0;
+}
+
+.cover-art {
+  width: 300px;
 }
 
 .game-row {
